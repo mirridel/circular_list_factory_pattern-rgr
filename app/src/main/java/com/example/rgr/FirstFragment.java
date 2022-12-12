@@ -68,10 +68,6 @@ public class FirstFragment extends Fragment {
                 Editable editable = binding.editTextTextPersonName.getText();
                 String str = editable == null ? "" : editable.toString();
 
-                if (str.isEmpty()) {
-                    Object x = userType.create();
-                    binding.editTextTextPersonName.setText(x.toString());
-                }
                 try {
                     cl.addBack(userType.parseValue(str));
                 }
@@ -90,10 +86,6 @@ public class FirstFragment extends Fragment {
                 Editable editable = binding.editTextTextPersonName.getText();
                 String str = editable == null ? "" : editable.toString();
 
-                if (str.isEmpty()) {
-                    Object x = userType.create();
-                    binding.editTextTextPersonName.setText(x.toString());
-                }
                 try {
                     cl.addAtPosition(userType.parseValue(str), position);
                 }
