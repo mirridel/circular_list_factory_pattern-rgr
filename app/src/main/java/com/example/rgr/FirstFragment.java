@@ -38,9 +38,9 @@ public class FirstFragment extends Fragment {
 
         binding = FragmentFirstBinding.inflate(inflater, container, false);
 
-        binding.somethingShit.setAdapter(customAdapterCircularList);
-        binding.somethingShit.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        binding.somethingShit.addItemDecoration(new DividerItemDecoration(this.getContext(), DividerItemDecoration.VERTICAL));
+        binding.ViewList.setAdapter(customAdapterCircularList);
+        binding.ViewList.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        binding.ViewList.addItemDecoration(new DividerItemDecoration(this.getContext(), DividerItemDecoration.VERTICAL));
 
         return binding.getRoot();
     }

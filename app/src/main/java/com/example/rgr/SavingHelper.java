@@ -10,7 +10,7 @@ import java.io.ObjectOutputStream;
 
 import com.example.rgr.data.structure.CircularList;
 
-class JSONHelper {
+class SavingHelper {
     private static final String FILE_NAME = "save.dat";
 
     static public Object readItems(Context context) {
