@@ -20,6 +20,9 @@ import com.example.rgr.databinding.FragmentFirstBinding;
 import com.example.rgr.data.structure.CircularList;
 import com.example.rgr.data.types.UserFactory;
 import com.example.rgr.data.types.UserType;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 public class FirstFragment extends Fragment {
 
@@ -27,6 +30,7 @@ public class FirstFragment extends Fragment {
 
     static CircularList cl = new CircularList();
     static UserType userType = UserFactory.getBuilderByName("Integer");
+    GraphView graphView;
 
     static RecyclerView.Adapter customAdapterCircularList = new CustomAdapterCircularList(cl);
 
@@ -118,6 +122,42 @@ public class FirstFragment extends Fragment {
                 Toast.makeText(getContext(), cl.toString(), Toast.LENGTH_SHORT).show();
 
                 customAdapterCircularList.notifyDataSetChanged();
+            }
+        });
+
+        binding.testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                LineGraphSeries<DataPoint> serial = new LineGraphSeries<DataPoint>();
+
+                int n = 0;
+                double end = 0;
+                for (int i = 1; n < 1280000; i *= 2) {
+                    n = i * 1000;
+                    // System.out.println("N = " + n);
+                    CircularList<Object> list = new CircularList<>();
+                    for (int j = 0; j < n; j++) list.add(userType.create());
+                    long start = System.nanoTime();
+                    try {
+                        list.mergeSort(userType.getTypeComparator());
+                    } catch (StackOverflowError ignored) {
+                        System.err.println("Stack error on " + n);
+                        return;
+                    }
+                    end = (System.nanoTime() - start) / 1_000_000;
+                    // System.out.println("Ms elapsed " + end);
+                    serial.appendData(new DataPoint(n , end), true, 100);
+                }
+
+                binding.idGraphView.getViewport().setMinX(10000);
+                binding.idGraphView.getViewport().setMaxX(n);
+                binding.idGraphView.getViewport().setMaxY((int) end);
+
+                binding.idGraphView.getViewport().setYAxisBoundsManual(true);
+                binding.idGraphView.getViewport().setXAxisBoundsManual(true);
+
+                binding.idGraphView.addSeries(serial);
             }
         });
     }

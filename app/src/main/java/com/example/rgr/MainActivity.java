@@ -29,6 +29,9 @@ import android.widget.Toast;
 
 import com.example.rgr.data.structure.CircularList;
 import com.example.rgr.data.types.UserFactory;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.PointsGraphSeries;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     String[] classesList = { "Integer", "Point"};
     String pointerClassesList = "";
+
+    static GraphView graphView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +75,13 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         spinner.setOnItemSelectedListener(itemSelectedListener);
+
+        graphView = findViewById(R.id.idGraphView);
+        graphView.setTitle("Graph View");
+        graphView.setTitleTextSize(32);
+        graphView.getGridLabelRenderer().setTextSize(32);
+        graphView.getGridLabelRenderer().setHorizontalLabelsAngle(90);
+        graphView.getGridLabelRenderer().reloadStyles();
     }
 
     @Override
